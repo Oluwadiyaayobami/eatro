@@ -38,7 +38,7 @@ const certingusers =  async (req,res) => {
         console.log(error)
         res.status(500).json({
             message : 'an error occures ',
-            error : error
+            error : `${error}`
         })
 
     }
