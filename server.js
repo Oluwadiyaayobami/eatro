@@ -6,7 +6,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 
 app.use(cors({
-    origin: "https://task-flow-steel-three.vercel.app",
+    origin: "https://eatro.vercel.app",
   credentials: true
 
 }))
