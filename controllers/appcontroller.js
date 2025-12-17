@@ -10,6 +10,7 @@ const certingusers =  async (req,res) => {
         const check = await register.findOne({$or: [{email:email},{username:username}]})
         if(check){
             res.status(400).json({
+                status : 'failed',
                 message: 'user already exist ',
             })
         }
@@ -37,7 +38,7 @@ const certingusers =  async (req,res) => {
     catch(error){
         console.log(error)
         res.status(500).json({
-            message : 'an error occures ',
+            message : 'an error occured ',
             error : `${error}`
         })
 
@@ -51,6 +52,7 @@ const loginusers = async(req,res) => {
             const ifuserexist =  await register.findOne({email})
             if(!ifuserexist){
                 res.status(401).json({
+                    status :'failed',
                     message : 'user not found',
                 })
             }
