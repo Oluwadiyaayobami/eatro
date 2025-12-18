@@ -1,6 +1,7 @@
 const bcrypts = require('bcryptjs')
 const jsonwebtoken = require('jsonwebtoken')
 const cookie = require('cookie-parser')
+const authorisation = require('../middleware/authorisation.js')
 const {login,register} = require('../models/usersschema.js')
 
 
@@ -103,10 +104,15 @@ const loginusers = async(req,res) => {
 }
 const userdashboard = async(req,res) => {
     try {
+        const {userid,username} = req.acesstoken
         res.status(200).json({
-            message : 'welcome to the user dashboard'
-        })
+            message : 'welcome to the user dashboard',
+            userid,
+            username
 
+        })
+        console.log(userid)
+        
     }
     catch(error){
         console.log(error)

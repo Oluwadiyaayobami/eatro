@@ -9,14 +9,17 @@ const authorization = async (req,res,next)=>{
     }
     else {
         const acesstoken = authorizationtoken.split(' ')[1]
+         
         const verifyingtoken =  jsonwebtoken.verify(acesstoken,process.env.jsonkey)
         if(!verifyingtoken){
             res.status(400).json({
                 message :'an error occured '
             })
-
+            req.acesstoken = verifyingtoken
         }
+        
         else {
+            req.acesstoken = verifyingtoken
             const role = acesstoken.username
             if(role === 'admin'){
                 res.status(400).json({
