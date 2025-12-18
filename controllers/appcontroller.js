@@ -69,7 +69,8 @@ const loginusers = async(req,res) => {
                     const acesstoken = jsonwebtoken.sign({
                         username : ifuserexist.username,
                         userid : ifuserexist._id,
-                        email: ifuserexist.email
+                        email: ifuserexist.email,
+                        role: ifuserexist.role 
                     },process.env.jsonkey,{expiresIn :'30m'})
                     const refreshtoken = jsonwebtoken.sign({
                         userid : ifuserexist._id
@@ -122,4 +123,43 @@ const userdashboard = async(req,res) => {
 
     }
 }
-module.exports = {certingusers,loginusers,userdashboard}
+const refresh = async (req,res) => {
+    try {
+         const refreshToken = req.cookies.refreshtoken
+         if(!refreshToken){
+            res.status(401).json({
+                message :'an error occured ',
+                error
+            })
+         }
+         else{
+            // verify refresh 
+            const verifyrefresh  = jsonwebtoken.verify(refreshToken,process.env.jsonrefresh)
+            if(!verifyrefresh){
+                res.status(401).json({
+                    message:'an error occured ',
+                    error
+                })
+            }
+            else{
+                const {userid,username} = req.acesstoken
+                const newacesstoken = jsonwebtoken.sign({userid,username},process.env.jsonkey,{expiresIn: '15m'})
+
+                return res.status(200).json({
+                    accessToken: newacesstoken
+                });
+                
+
+            }
+         }
+    }
+    catch(error){
+        res.status(500).json({
+            message : 'failed',
+            error
+            
+        })
+
+    }
+}
+module.exports = {certingusers,loginusers,userdashboard,refresh}

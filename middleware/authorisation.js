@@ -15,12 +15,12 @@ const authorization = async (req,res,next)=>{
             res.status(400).json({
                 message :'an error occured '
             })
-            req.acesstoken = verifyingtoken
+            
         }
         
         else {
             req.acesstoken = verifyingtoken
-            const role = acesstoken.username
+            const role = verifyingtoken.role
             if(role === 'admin'){
                 res.status(400).json({
                     message :'only users can acess this route '
