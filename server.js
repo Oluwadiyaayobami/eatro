@@ -7,7 +7,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: "https://taskflow-two-neon.vercel.app/",
+    origin: "https://taskflow-two-neon.vercel.app",
   credentials: true
 
 }))
