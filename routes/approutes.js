@@ -6,6 +6,6 @@ const router =  express.Router()
 
 router.post('/register',certingusers)
 router.post('/login',loginusers)
-router.get('/userdashboard',authorization,userdashboard)
+router.get('/dashboard',authorization,userdashboard)
 
 module.exports = router
