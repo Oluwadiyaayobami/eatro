@@ -7,7 +7,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: "https://eatro.vercel.app",
+    origin: "http://localhost:3000",
   credentials: true
 
 }))
