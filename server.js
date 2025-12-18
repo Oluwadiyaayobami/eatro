@@ -7,7 +7,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: `${process.env.acesspoint}`,
+    origin: "https://eatro.vercel.app",
   credentials: true
 
 }))
