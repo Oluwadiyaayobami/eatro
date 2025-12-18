@@ -2,11 +2,12 @@ const express = require('express')
 const dbconnection = require('./database/db.js')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
+const cookie = require('cookie-parser')
 const router = require('./routes/approutes.js')
 const app = express()
-
+app.use(cookie())
 app.use(cors({
-    origin: "https://eatro.vercel.app",
+    origin: `${process.env.acesspoint}`,
   credentials: true
 
 }))

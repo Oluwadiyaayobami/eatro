@@ -1,0 +1,7 @@
+so to do a refersh token you have to stor it in a cookie so u install npm i cookie-parser 
+let your server use cookie parser then when u a user login we store it in a cokie response res.cookie(takes the name , what is certing the cookie ,and the option that the cookie can take )
+
+note cors error is called cross origin sending this occur when u are trying to connect two seprate aplication on diffrent server 
+to solve this we use cors so we have to install cors then in our server we use cors app.use(cors({
+    then u pass in the origin that u want to allow to make request and also allow credentials to be true 
+}))

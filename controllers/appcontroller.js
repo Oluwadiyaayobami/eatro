@@ -1,5 +1,6 @@
 const bcrypts = require('bcryptjs')
 const jsonwebtoken = require('jsonwebtoken')
+const cookie = require('cookie-parser')
 const {login,register} = require('../models/usersschema.js')
 
 
@@ -68,11 +69,23 @@ const loginusers = async(req,res) => {
                         username : ifuserexist.username,
                         userid : ifuserexist._id,
                         email: ifuserexist.email
-                    },process.env.jsonkey,{expiresIn :'15m'}) 
+                    },process.env.jsonkey,{expiresIn :'30m'})
+                    const refreshtoken = jsonwebtoken.sign({
+                        userid : ifuserexist._id
+                    },process.env.jsonrefresh,{expiresIn: '7d'})
 
+
+                    // storeing refreshtokin on cookie
+                    res.cookie('refreshtoken',refreshtoken,{
+                                httpOnly: true,     
+                                secure: true,         
+                                sameSite: 'none',      
+                                maxAge: 7 * 24 * 60 * 60 * 1000,
+                    })
                     return res.status(200).json({
                         message: `welcome ${ifuserexist.username}`,
-                        acesstoken :acesstoken
+                        acesstoken :acesstoken,
+                        
                     })
 
                 }
