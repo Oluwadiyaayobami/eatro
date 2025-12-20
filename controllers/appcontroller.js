@@ -1,8 +1,11 @@
 const bcrypts = require('bcryptjs')
 const jsonwebtoken = require('jsonwebtoken')
+const createnewpassword = require('../models/password.js')
 const cookie = require('cookie-parser')
 const authorisation = require('../middleware/authorisation.js')
 const {login,register} = require('../models/usersschema.js')
+const Cryptr  = require('cryptr')
+
 
 
 const certingusers =  async (req,res) => {
@@ -162,4 +165,79 @@ const refresh = async (req,res) => {
 
     }
 }
-module.exports = {certingusers,loginusers,userdashboard,refresh}
+const passwormanager = async (req,res) =>{
+    try{
+        const {appName,username,password} = req.body
+        const userId = req.acesstoken.userid
+        const cryptr = new Cryptr(process.env.encriptionkey)
+        const encrypted = cryptr.encrypt(password);
+
+        
+        const newpassword = await createnewpassword.create({
+            username,
+            appName,
+            userId,
+            password : encrypted
+        })
+        if(!newpassword){
+            res.status(401).json({
+                message: 'an error occured ',
+                error
+                
+            })
+        }
+        else{
+            return res.status(200).json({
+                message: 'new password cerated',
+                newpassword
+            })
+        }
+
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({
+            message : 'an error ocured ',
+            error
+        })
+    }
+
+
+}
+const allpassword = async (req,res) =>{
+    try {
+        const userid = req.acesstoken.userid
+        const getall = await createnewpassword.find({userId:userid}).select('appName username password')
+        if(!getall){
+            res.status(404).json({
+                message: 'no password found cerate a new one '
+            })
+        }
+        else {
+            const cryptr = new Cryptr(process.env.encriptionkey)
+            const password = getall.map(p =>({
+                appName :p.appName,
+                username: p.username,
+                password: cryptr.decrypt(p.password)
+            }))
+            
+
+            
+            return res.status(200).json({
+                message: 'password found',
+                passwords : password
+            })
+        }
+
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({
+            message : "an error occured "
+        })
+
+    }
+
+}
+
+module.exports = {certingusers,loginusers,userdashboard,refresh,passwormanager,allpassword}
