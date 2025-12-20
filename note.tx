@@ -5,3 +5,11 @@ note cors error is called cross origin sending this occur when u are trying to c
 to solve this we use cors so we have to install cors then in our server we use cors app.use(cors({
     then u pass in the origin that u want to allow to make request and also allow credentials to be true 
 }))
+
+so today i learnt encription and decription useing cryptr this was built from crypto
+so basicaly i cerate an env file that contain my key the when i wantto encrypt i do something like 
+ const Cryptr = require("Cryptr")
+ const cryptr =  new Cryptr(process.env.secretkey)
+const encrypr = cryptr.enrypt(the ting u want to encrypt)
+and decrtpted = cryptr.decrypt(the value to be decrypted )
+not if u are getting something from the dada base so u wouldhvae to select the value u want to get then u have to map and  cerate an new array
