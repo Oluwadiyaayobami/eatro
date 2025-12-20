@@ -198,7 +198,7 @@ const passwormanager = async (req,res) =>{
         console.log(error)
         res.status(500).json({
             message : 'an error ocured ',
-            error
+            error : `${error}}`
         })
     }
 
