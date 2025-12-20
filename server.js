@@ -7,7 +7,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: "https://taskflow-nine-puce.vercel.app",
+    origin: "https://frontendtaskflo-next.vercel.app",
   credentials: true
 
 }))
