@@ -275,8 +275,8 @@ const todomanager = async (req,res) => {
 const alltodo = async (req,res) =>{
     try {
         const userid  = req.acesstoken.userid
-        const fetchingalltodo = await cerateingtodo.find({userid})
-        if(!fetchingalltodo.length === 0){
+        const fetchingalltodo = await cerateingtodo.find({userid}).select('description title')
+        if(fetchingalltodo.length === 0){
             res.status(404).json({
                 message : 'no information '
             })
@@ -284,9 +284,14 @@ const alltodo = async (req,res) =>{
 
         }
         else {
+            const allinfo = fetchingalltodo.map(p =>({
+            description:p.description,
+            title:p.title
+
+            }))
             return res.status(200).json({
                 message : 'user found ',
-                fetchingalltodo
+                fetchingalltodo :allinfo
         })
         }
 
