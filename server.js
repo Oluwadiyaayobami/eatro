@@ -7,7 +7,7 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: "https://frontendtaskflo-next.vercel.app",
+    origin: "https://secure-vaults.vercel.app",
   credentials: true
 
 }))
