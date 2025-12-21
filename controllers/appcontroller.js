@@ -5,6 +5,7 @@ const cookie = require('cookie-parser')
 const authorisation = require('../middleware/authorisation.js')
 const {login,register} = require('../models/usersschema.js')
 const Cryptr  = require('cryptr')
+const cerateingtodo = require('../models/todo.js')
 
 
 
@@ -208,7 +209,7 @@ const allpassword = async (req,res) =>{
     try {
         const userid = req.acesstoken.userid
         const getall = await createnewpassword.find({userId:userid}).select('appName username password')
-        if(!getall){
+        if(getall.length === 0){
             res.status(404).json({
                 message: 'no password found cerate a new one '
             })
@@ -239,5 +240,63 @@ const allpassword = async (req,res) =>{
     }
 
 }
+const todomanager = async (req,res) => {
+    try {
+        const {description ,title} = req.body
+        const userid = req.accesstoken.userid
+        const addingnewlist = await cerateingtodo.create({
+            description,
+            title,
+            userid
+        })
+        if(!addingnewlist){
+            res.status(400).json({
+                message:'user not cerated',
+                error : error.message
+            })
+        }
+        else{
+            return res.status(200).json({
+                message:'user account cerated sucessfuly '
+            })
+        }
 
-module.exports = {certingusers,loginusers,userdashboard,refresh,passwormanager,allpassword}
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).json({
+            message : 'an error occured ',
+            error : error.message
+        })
+
+    }
+
+}
+const alltodo = async (req,res) =>{
+    try {
+        const userid  = req.accesstoken.userid
+        const fetchingalltodo = await cerateingtodo.find({userid})
+        if(fetchingalltodo.length === 0){
+            res.status(404).json({
+                message : 'no information '
+            })
+
+        }
+        else {
+            return res.status(200).json({
+                message : 'user found ',
+                fetchingalltodo
+        })
+        }
+
+    }
+    catch(error){
+    console.log(error)
+    res.status(500).json({
+        message: 'an error occured ',
+        error : error.message
+    })
+    }
+    
+}
+module.exports = {certingusers,loginusers,userdashboard,refresh,passwormanager,allpassword,todomanager,alltodo}
