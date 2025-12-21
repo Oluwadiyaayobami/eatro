@@ -8,7 +8,11 @@ const todoschema = new mongoose.Schema({
     title :{
         type : String,
         required : true 
-    }
+    },
+    userId: {
+    type: String,  
+    required: true
+  },
 
 })
 const cerateingtodo = mongoose.model('todo',todoschema)
