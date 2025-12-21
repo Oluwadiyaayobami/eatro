@@ -246,7 +246,7 @@ const todomanager = async (req,res) => {
         const addingnewlist = await cerateingtodo.create({
             description,
             title,
-            userid
+            userId :userid
         })
         if(!addingnewlist){
             res.status(400).json({
