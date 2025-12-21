@@ -11,5 +11,5 @@ router.post('/refresh',authorization,refresh)
 router.post('/addnewpassword',authorization,passwormanager)
 router.get('/allpassword',authorization,allpassword)
 router.post('/todos/add',authorization,todomanager)
-router.get('/todos/view',authorization,alltodo)
+router.get('/todos/viewp',authorization,alltodo)
 module.exports = router
