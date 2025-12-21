@@ -276,7 +276,7 @@ const alltodo = async (req,res) =>{
     try {
         const userid  = req.acesstoken.userid
         const fetchingalltodo = await cerateingtodo.find({userid})
-        if(fetchingalltodo.length === 0){
+        if(!fetchingalltodo.length === 0){
             res.status(404).json({
                 message : 'no information '
             })
