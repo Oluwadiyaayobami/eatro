@@ -8,7 +8,6 @@ const Cryptr  = require('cryptr')
 const cerateingtodo = require('../models/todo.js')
 
 
-
 const certingusers =  async (req,res) => {
     try{
         const {username , email ,password } = req.body
