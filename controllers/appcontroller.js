@@ -280,6 +280,7 @@ const alltodo = async (req,res) =>{
             res.status(404).json({
                 message : 'no information '
             })
+            
 
         }
         else {
