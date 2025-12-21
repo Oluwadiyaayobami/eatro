@@ -243,7 +243,7 @@ const allpassword = async (req,res) =>{
 const todomanager = async (req,res) => {
     try {
         const {description ,title} = req.body
-        const userid = req.accesstoken.userid
+        const userid = req.acesstoken.userid
         const addingnewlist = await cerateingtodo.create({
             description,
             title,
@@ -274,13 +274,13 @@ const todomanager = async (req,res) => {
 }
 const alltodo = async (req,res) =>{
     try {
-        const userid  = req.accesstoken.userid
+        const userid  = req.acesstoken.userid
         const fetchingalltodo = await cerateingtodo.find({userid})
         if(fetchingalltodo.length === 0){
             res.status(404).json({
                 message : 'no information '
             })
-            
+
 
         }
         else {
