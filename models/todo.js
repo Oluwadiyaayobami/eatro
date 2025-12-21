@@ -11,5 +11,5 @@ const todoschema = new mongoose.Schema({
     }
 
 })
-const cerateingtodo = model.mongoose('todo',todoschema)
+const cerateingtodo = mongoose.model('todo',todoschema)
 module.exports = cerateingtodo
