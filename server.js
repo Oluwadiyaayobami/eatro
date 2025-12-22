@@ -7,9 +7,11 @@ const router = require('./routes/approutes.js')
 const app = express()
 app.use(cookie())
 app.use(cors({
-    origin: "https://secure-vaults.vercel.app",
+  origin: [
+    "http://localhost:3000",
+    "https://secure-vaults.vercel.app"
+  ],
   credentials: true
-
 }))
 app.use(express.json())
 app.use('/api/auth',router)
